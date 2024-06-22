@@ -12,3 +12,4 @@
 /home/enigma/EnigmaLearn/ParkingSystem/ParkingSystem/obj/Debug/net8.0/ParkingSystem.pdb
 /home/enigma/EnigmaLearn/ParkingSystem/ParkingSystem/obj/Debug/net8.0/ParkingSystem.genruntimeconfig.cache
 /home/enigma/EnigmaLearn/ParkingSystem/ParkingSystem/obj/Debug/net8.0/ref/ParkingSystem.dll
+/home/enigma/EnigmaLearn/ParkingSystem/ParkingSystem/obj/Debug/net8.0/ParkingSystem.sourcelink.json

@@ -49,15 +49,23 @@ public class Service
     {
         if (parkingLot.IsInitialized)
         {
-            if (parkingLot.Parking[slot-1] is null)
+            if (slot < 1 || slot > parkingLot.Slots)
             {
-                Console.WriteLine($"Slot number {slot} already free");
+                Console.WriteLine($"Slot number invalid");
             }
             else
             {
-                parkingLot.Parking[slot-1] = null;
-                Console.WriteLine($"Slot number {slot} is free");
+                if (parkingLot.Parking[slot-1] is null)
+                {
+                    Console.WriteLine($"Slot number {slot} already free");
+                }
+                else
+                {
+                    parkingLot.Parking[slot-1] = null;
+                    Console.WriteLine($"Slot number {slot} is free");
+                }
             }
+
         }
         else
         {
@@ -93,14 +101,17 @@ public class Service
 
     public static void CountType(ParkingLot parkingLot, string type)
     {
-        int count = 0;
         if (parkingLot.IsInitialized)
         {
+            int count = 0;
             foreach (var vehicle in parkingLot.Parking)
             {
-                if (vehicle.Type == type)
+                if (vehicle is not null)
                 {
-                    count++;
+                    if (vehicle.Type == type)
+                    {
+                        count++;
+                    }
                 }
             }
 
@@ -125,9 +136,12 @@ public class Service
                 List<string> oddPlates = new List<string>();
                 foreach (var vehicle in parkingLot.Parking)
                 {
-                    if (int.Parse(vehicle.LicenseNumber.Split('-')[1]) % 2 != 0)
+                    if (vehicle is not null)
                     {
-                        oddPlates.Add(vehicle.LicenseNumber);
+                        if (int.Parse(vehicle.LicenseNumber.Split('-')[1]) % 2 != 0)
+                        {
+                            oddPlates.Add(vehicle.LicenseNumber);
+                        }
                     }
                 }
 
@@ -153,9 +167,12 @@ public class Service
                 List<string> evenPlates = new List<string>();
                 foreach (var vehicle in parkingLot.Parking)
                 {
-                    if (int.Parse(vehicle.LicenseNumber.Split('-')[1]) % 2 == 0)
+                    if (vehicle is not null)
                     {
-                        evenPlates.Add(vehicle.LicenseNumber);
+                        if (int.Parse(vehicle.LicenseNumber.Split('-')[1]) % 2 == 0)
+                        {
+                            evenPlates.Add(vehicle.LicenseNumber);
+                        }
                     }
                 }
 
@@ -181,9 +198,12 @@ public class Service
                 List<string> collections = new List<string>();
                 foreach (var vehicle in parkingLot.Parking)
                 {
-                    if (vehicle.Colour == colour)
+                    if (vehicle is not null)
                     {
-                        collections.Add(vehicle.LicenseNumber);
+                        if (vehicle.Colour == colour)
+                        {
+                            collections.Add(vehicle.LicenseNumber);
+                        }
                     }
                 }
 
@@ -209,9 +229,12 @@ public class Service
                 List<int> collections = new List<int>();
                 for (int i = 0; i < parkingLot.Slots; i++)
                 {
-                    if (parkingLot.Parking[i].Colour == colour)
+                    if (parkingLot.Parking[i] is not null)
                     {
-                        collections.Add(i+1);
+                        if (parkingLot.Parking[i].Colour == colour)
+                        {
+                            collections.Add(i+1);
+                        }
                     }
                 }
 
@@ -231,11 +254,14 @@ public class Service
         {
             for (int i = 0; i < parkingLot.Slots; i++)
             {
-                if (parkingLot.Parking[i].LicenseNumber == license)
+                if (parkingLot.Parking[i] is not null)
                 {
-                    Console.WriteLine(i+1);
-                    isFound = true;
-                    break;
+                    if (parkingLot.Parking[i].LicenseNumber == license)
+                    {
+                        Console.WriteLine(i+1);
+                        isFound = true;
+                        break;
+                    }
                 }
             }
 
