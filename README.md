@@ -1,92 +1,134 @@
 # PARKING MANAGEMENT SYSTEM
 
-### Installation
-Clone repo to local
-```bash
+## Table of Contents
+- [PARKING MANAGEMENT SYSTEM](#parking-management-system)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Features](#features)
+    - [Check In](#check-in)
+    - [Check Out](#check-out)
+    - [Report](#report)
+  - [Methods](#methods)
+  - [Example Output](#example-output)
+  - [About The Project](#about-the-project)
+    - [Project Structure](#project-structure)
+    - [Detail Structure](#detail-structure)
+      - [Program](#program)
+      - [Model](#model)
+      - [Service](#service)
+      - [Menu](#menu)
+
+## Background
+This is a system to help organize parking lots in managing parked vehicles. In short, this system helps record vehicles entering, staying and leaving the parking lot.
+
+## Installation
+```
 clone https://github.com/MuffinCrunchy/ParkingSystem.git
 ```
-You can run with
-```csharp
-cd ./ParkingSystem/ParkingSytem
+
+## Usage
+```
+cd ./ParkingSystem
+dotnet build
+cd ./ParkingSystem
 dotnet run
 ```
 
-### Method
+## Features
+### Check In
+1. All vehicles are free to use the available lots
+2. The only vehicles permitted to enter are small cars and motorbikes.
+3. Every vehicle that enters is recorded based on license number.
+4. The calculation of parking fees is per hour, vehicles that have just entered are calculated for 1 hour.
+
+### Check Out
+1. Every vehicle that has checked out the lot will be available and can be used by other people.
+
+### Report
+1. A report on the number of lots filled is required.
+2. A report on the number of lots available is required.
+3. A vehicle number report is required based on odd and even license numbers.
+4. A report on the number of vehicles based on vehicle's type is required.
+5. A report on the number of vehicles based on vehicle's color is required.
+
+## Methods
 1. Create Parking Lot
-    ```csharp
+    ```
     create_parking_lot [slots]
     ```
     Example:
-    ```csharp
+    ```
     create_parking_lot 6
     ```
 2. Check In Vehicle
-    ```csharp
+    ```
     park [license_number] [colour] [type]
     ```
     Example
-    ```csharp
+    ```
     park B-1234-XYZ Putih Mobil
     ```
 3. Check Out Vehicle
-    ```csharp
+    ```
     leave [slot]
     ```
     Example:
-    ```csharp
+    ```
     leave 4
     ```
 4. Check Parking Lot Status
-    ```csharp
+    ```
     status
     ```
 5. Count Type of Vehicles
-    ```csharp
+    ```
     type_of_vehicles [type]
     ```
     Example:
-    ```csharp
+    ```
     type_of_vehicles Motor
     ```
 6. Get Vehicles with Odd License Number
-    ```csharp
+    ```
     registration_numbers_for_vehicles_with_odd_plate
     ```
 7. Get Vehicles with Even License Number
-    ```csharp
+    ```
     registration_numbers_for_vehicles_with_even_plate
     ```
 8. Get Licence Number of Vehicles by Colour
-    ```csharp
+    ```
     registration_numbers_for_vehicles_with_colour [colour]
     ```
     Example:
-    ```csharp
+    ```
     registration_numbers_for_vehicles_with_colour Putih
     ```
 9. Get Slot Number of Vehicles by Colour
-    ```csharp
+    ```
     slot_numbers_for_vehicles_with_colour [colour]
     ```
     Example:
-    ```csharp
+    ```
     slot_numbers_for_vehicles_with_colour Putih
     ```
 10. Get Slot Number of Vehicle by License Number
-    ```csharp
+    ```
     slot_number_for_registration_number [license_number]
     ```
     Example:
-    ```csharp
+    ```
     slot_number_for_registration_number B-3141-ZZZ
     ```
 11. Exit Program
-    ```csharp
+    ```
     exit
     ```
 
-### Example Runtime
-```csharp
+## Example Output
+```
 $ create_parking_lot 6
 Created a parking lot with 6 slots
 
@@ -151,3 +193,52 @@ Not Found
 
 $ exit
 ```
+
+## About The Project
+### Project Structure
+```
+ParkingSystem
+├─ Menus
+│  ├─ Menu.cs
+├─ Models
+│  ├─ ParkingLot.cs
+│  ├─ Vehicle.cs
+├─ Services
+│  ├─ Service.cs
+├─ ParkingSystem.csproj
+├─ Program.cs
+.gitignore
+ParkingSystem.sln
+README.md
+```
+### Detail Structure
+#### Program
+This is main class to initiates the system. Create instance of `Menu` and start the system.
+
+#### Model
+Contains the main object structure, `ParkingLot` and `Vehicle`. With the following properties,
+
+1. Parking Lot
+   - `Slots (integer)`: contains the number of slots owned by a parking lot.
+   - `List<Vehicles> (array)`: contains a list of `Vehicle` objects that are currently staying in the parking lot
+   - `IsInitialized (boolean)`: to check whether the parking space has been initialized
+2. Vehicle
+   - `LicenseNumber (string)`: contains the license number of a vehicle
+   - `Colour (string)`: contains the colour of a vehicle
+   - `Type (string)`: contains the type of a vehicle
+
+#### Service
+Contains methods to run the features of the parking system
+- `CreateParkingLot (void)`: initializes the parking lot according to the number of slots input.
+- `CheckIn (void)`: record incoming vehicles and the lots occupied by those vehicles.
+- `CheckOut (void)`: clear the lot of exiting vehicle.
+- `Status (void)`: check the lot occupied by vehicles.
+- `CountType (void)`: calculates the same vehicle type as the user input
+- `OddPlate (void)`: prints license numbers that have odd values
+- `EvenPlate (void)`: prints license numbers that have even values
+- `ColourCollectByLicense (void)`: prints the license number in the same color as the user input
+- `ColourCollectBySlot (void)`: prints the slot number in the same color as the user input
+- `CheckLicense (void)`: Look for the slot number that matches the license number entered by the user
+
+#### Menu
+Main menu section to receive user input and run methods from `Service`. Using method `StartMenu (void)` to run the menu.
