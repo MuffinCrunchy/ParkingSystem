@@ -7,6 +7,7 @@ clone https://github.com/MuffinCrunchy/ParkingSystem.git
 ```
 You can run with
 ```csharp
+cd ./ParkingSystem/ParkingSytem
 dotnet run
 ```
 
