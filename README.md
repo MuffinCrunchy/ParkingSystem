@@ -25,7 +25,7 @@ This is a system to help organize parking lots in managing parked vehicles. In s
 
 ## Installation
 ```
-clone https://github.com/MuffinCrunchy/ParkingSystem.git
+git clone https://github.com/MuffinCrunchy/ParkingSystem.git
 ```
 
 ## Usage
